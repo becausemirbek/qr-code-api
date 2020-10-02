@@ -84,7 +84,7 @@ router.post(
       const token = jwt.sign({ userId: user.id }, config.get("jwtSecret"), {
         expiresIn: "10m",
       });
-      res.json({ token, userId: user.id });
+      res.json({ token, userId: user.id, email });
     } catch (e) {
       res
         .status(500)
