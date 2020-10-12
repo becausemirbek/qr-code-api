@@ -10,11 +10,11 @@ const router = Router();
 router.post("/add", auth, async (req, res) => {
   try {
     console.log(req.user);
-    if (req.body.qrcode !== "coding is easy") {
-      return res.status(401).json({
-        message: "WRONG QR-CODE!",
-      });
-    }
+    // if (req.body.qrcode !== "coding is easy") {
+    //   return res.status(401).json({
+    //     message: "WRONG QR-CODE!",
+    //   });
+    // }
     await Axios.post(
       "https://docs.google.com/forms/u/0/d/e/1FAIpQLScSFTODP2wz7lP-s-DJraOJO6NngkX8eL5-RH4DoYi4QTnMOw/formResponse",
       new URLSearchParams({

@@ -85,7 +85,7 @@ router.post(
         { userId: user.id, email: user.email },
         config.get("jwtSecret"),
         {
-          expiresIn: "10m",
+          // expiresIn: "10m",
         }
       );
       res.json({ token });
