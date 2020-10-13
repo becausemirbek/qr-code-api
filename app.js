@@ -3,6 +3,8 @@ const config = require("config");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const https = require("https");
+const http = require('http');
+
 const fs = require('fs');
 
 const app = express();
@@ -21,7 +23,7 @@ const httpsServer = https.createServer({
   key: fs.readFileSync('/etc/letsencrypt/live/mirba-kot.ml/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/mirba-kot.ml/fullchain.pem'),
 }, app);
-
+const httpServer = http.createServer(app);
 async function start() {
   try {
     await mongoose.connect(config.get("mongoUri"), {
@@ -30,9 +32,12 @@ async function start() {
       useCreateIndex: true,
       useFindAndModify: false,
     });
-    httpsServer.listen(PORT, () =>
+    httpServer.listen(PORT, () =>
       console.log(`app has been started on port http://localhost:${PORT}`)
     );
+    httpsServer.listen(443, () => {
+      console.log('HTTPS Server running on port 443');
+  });
   } catch (e) {
     console.log("server Error", e.message);
     process.exit(1);
